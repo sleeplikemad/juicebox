@@ -8,9 +8,9 @@ const {
     try {
       console.log("Starting to create users...");
   
-      const albert = await createUser({ username: 'albert', password: 'bertie99' });
-      const sandra = await createUser({ username: 'sandra', password: '2sandy4me' });
-      const glamgal = await createUser({ username: 'glamgal', password: 'soglam'});
+      const albert = await createUser({ username: 'albert', password: 'bertie99', name: 'Albert', location: 'Alberta'});
+      const sandra = await createUser({ username: 'sandra', password: '2sandy4me', name: 'Sandra', location: 'Beach'});
+      const glamgal = await createUser({ username: 'glamgal', password: 'soglam', name: 'Gal', location: 'Israel'});
       console.log(albert);
       console.log(sandra);
       console.log(glamgal);
@@ -45,7 +45,10 @@ const {
         CREATE TABLE users (
           id SERIAL PRIMARY KEY,
           username varchar(255) UNIQUE NOT NULL,
-          password varchar(255) NOT NULL
+          password varchar(255) NOT NULL,
+          name varchar(255) NOT NULL,
+          location VARCHAR(255) NOT NULL,
+          active BOOLEAN DEFAULT true
         );
       `);
   
