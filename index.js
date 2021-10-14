@@ -2,6 +2,8 @@ require('dotenv').config();
 const PORT = 3000;
 const express = require('express');
 const server = express();
+const bodyParser = require('body-parser');
+server.use(bodyParser.json());
 
 const { client } = require('./db');
 client.connect();
@@ -13,12 +15,9 @@ server.listen(PORT, () => {
   console.log('The server is up on port', PORT)
 });
 
-
-const bodyParser = require('body-parser');
-server.use(bodyParser.json());
-
 const morgan = require('morgan');
 server.use(morgan('dev'));
+
 
 // server.use((req, res, next) => {
 //     console.log("<____Body Logger START____>");
@@ -37,7 +36,7 @@ server.use(async (req, res, next) => {
     }
   
   
-    if (auth.startsWith(prefix)) {
+    else if (auth.startsWith(prefix)) {
       // recover the token
       const token = auth.slice(prefix.length);
       try {
@@ -50,6 +49,7 @@ server.use(async (req, res, next) => {
   
         // attach the user and move on
         req.user = user;
+        console.log("user: ", req.user)
   
         next();
       } catch (error) {
